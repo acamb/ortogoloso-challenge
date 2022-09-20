@@ -28,7 +28,7 @@ public class FatturaController {
             return new ResponseEntity<>(fatture, HttpStatus.OK);
         }
         catch(Exception ex){
-            logger.error("Errore in list()",ex);
+            logger.error("Error in list()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -39,7 +39,7 @@ public class FatturaController {
             return new ResponseEntity<>(fatturaService.read(id),HttpStatus.OK);
         }
         catch(Exception ex){
-            logger.error("Errore in get()",ex);
+            logger.error("Error in get()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -50,7 +50,7 @@ public class FatturaController {
             return new ResponseEntity<>(fatturaService.save(body),HttpStatus.CREATED);
         }
         catch(Exception ex){
-            logger.error("Errore in save()",ex);
+            logger.error("Error in save()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -61,7 +61,7 @@ public class FatturaController {
             return new ResponseEntity<>(fatturaService.update(body),HttpStatus.OK);
         }
         catch(Exception ex){
-            logger.error("Errore in update()",ex);
+            logger.error("Error in update()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -73,7 +73,7 @@ public class FatturaController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch(Exception ex){
-            logger.error("Errore in delete()",ex);
+            logger.error("Error in delete()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

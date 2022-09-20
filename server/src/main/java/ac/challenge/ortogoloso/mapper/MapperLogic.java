@@ -22,6 +22,11 @@ public class MapperLogic {
         return dto;
     }
 
+    /**
+     * Meotodo che mappa dal DTO all'Entity, ATTENZIONE: eventuali relazioni sono da mappare manualmente
+     * @param fatturaDto
+     * @param fattura
+     */
     public static void dtoToFattura(FatturaDto fatturaDto,Fattura fattura){
         //fattura.setId(fatturaDto.getId());
         fattura.setIdentificativo(fatturaDto.getIdentificativo());
@@ -44,6 +49,11 @@ public class MapperLogic {
         return dto;
     }
 
+    /**
+     * Metodo che mappa dal dto all'entity, ATTENZIONE: le relazioni sono da mappare manualmente
+     * @param dettaglioDto
+     * @param dettaglio
+     */
     public static void dtoToDettaglio(DettaglioDto dettaglioDto,Dettaglio dettaglio){
         dettaglio.setId(dettaglioDto.getId());
         dettaglio.setDescrizione(dettaglioDto.getDescrizione());

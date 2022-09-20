@@ -28,7 +28,7 @@ public class DettaglioController {
             return new ResponseEntity<>(dettagli, HttpStatus.OK);
         }
         catch(Exception ex){
-            logger.error("Errore in list()",ex);
+            logger.error("Error in list()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -39,7 +39,7 @@ public class DettaglioController {
             return new ResponseEntity<>(dettaglioService.save(body.getDettaglioDto(), body.getFatturaId()),HttpStatus.CREATED);
         }
         catch(Exception ex){
-            logger.error("Errore in save()",ex);
+            logger.error("Error in save()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -50,7 +50,7 @@ public class DettaglioController {
             return new ResponseEntity<>(dettaglioService.update(body),HttpStatus.OK);
         }
         catch(Exception ex){
-            logger.error("Errore in update()",ex);
+            logger.error("Error in update()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -62,7 +62,7 @@ public class DettaglioController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch(Exception ex){
-            logger.error("Errore in delete()",ex);
+            logger.error("Error in delete()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
