@@ -29,11 +29,13 @@ export class DettaglioViewComponent implements OnInit {
   onSubmit(form: NgForm){
     if(form.valid){
         this.save.emit(this.dettaglio);
+        this.dettaglio=new Dettaglio();
     }
   }
 
   onBack(){
       this.back.emit();
+      this.dettaglio=new Dettaglio();
   }
 
 }

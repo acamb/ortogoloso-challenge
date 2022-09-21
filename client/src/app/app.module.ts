@@ -8,6 +8,7 @@ import { FatturaViewComponent } from './components/fattura-view/fattura-view.com
 import { DettaglioViewComponent } from './components/dettaglio-view/dettaglio-view.component';
 import { FatturaFormComponent } from './components/fattura-form/fattura-form.component';
 import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

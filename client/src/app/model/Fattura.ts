@@ -1,6 +1,6 @@
-enum ModalitaPagamento{
-    BONIFICO,
-    SDD
+export enum ModalitaPagamento{
+    BONIFICO="BONIFICO",
+    SDD="SDD"
 }
 
 export class Fattura{

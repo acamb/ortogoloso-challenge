@@ -1,1 +1,26 @@
-<p>fatture-list works!</p>
+<h2>Elenco fatture</h2>
+<button class="btn btn-primary" (click)="onNuovaFattura()">Nuova</button>
+<div class="form-group col-md-12">
+    <table class="table table-striped">
+        <thead>
+            <th></th>
+            <th></th>
+            <th>Identificativo</th>
+            <th>Prestatore</th>
+            <th>Cessionario</th>
+            <th>Data</th>
+            <th>Importo</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let f of fatture | async">
+                <td><a (click)="onRemoveFattura(f)">X</a></td>
+                <td><a (click)="onSelectFattura(f)">X</a></td>
+                <td>{{f.identificativo}}</td>
+                <td>{{f.nomePrestatore}}</td>
+                <td>{{f.nomeCessionario}}</td>
+                <td>{{f.dataEmissione | date}}</td>
+                <td>{{f.importo}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

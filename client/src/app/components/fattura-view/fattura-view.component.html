@@ -1,1 +1,6 @@
-<p>fattura-view works!</p>
+<app-fattura-form  *ngIf="fattura" [fattura]="fattura | async"
+ [dettagli]="dettagli | async"
+  (deleteDettaglio)="onDeleteDettaglio($event)"
+   (saveDettaglio)="onSaveDettaglio($event)"
+    (saveFatturaConDettagli)="onSaveDettaglioList($event)"
+     (saveFattura)="onSaveFattura($event)">
