@@ -19,6 +19,7 @@ public class MapperLogic {
         dto.setModalitaPagamento(fattura.getModalitaPagamento());
         dto.setImporto(fattura.getImporto());
         dto.setIban(fattura.getIban());
+        dto.setNumeroRate(fattura.getNumeroRate());
         return dto;
     }
 
@@ -38,6 +39,7 @@ public class MapperLogic {
         fattura.setModalitaPagamento(fatturaDto.getModalitaPagamento());
         fattura.setImporto(fatturaDto.getImporto());
         fattura.setIban(fatturaDto.getIban());
+        fattura.setNumeroRate(fatturaDto.getNumeroRate());
     }
 
     public static DettaglioDto dettaglioToDto(Dettaglio dettaglio){
@@ -46,6 +48,7 @@ public class MapperLogic {
         dto.setDescrizione(dettaglio.getDescrizione());
         dto.setQuantita(dettaglio.getQuantita());
         dto.setAliquotaIva(dettaglio.getAliquotaIva());
+        dto.setImporto(dettaglio.getImporto());
         return dto;
     }
 
@@ -59,5 +62,6 @@ public class MapperLogic {
         dettaglio.setDescrizione(dettaglioDto.getDescrizione());
         dettaglio.setQuantita(dettaglioDto.getQuantita());
         dettaglio.setAliquotaIva(dettaglioDto.getAliquotaIva());
+        dettaglio.setImporto(dettaglioDto.getImporto());
     }
 }

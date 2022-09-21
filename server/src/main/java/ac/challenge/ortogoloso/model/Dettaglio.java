@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Getter
@@ -25,8 +26,12 @@ public class Dettaglio {
     private int quantita;
     @Min(value = 1,message = "aliquota.lesser.than.one")
     private BigDecimal aliquotaIva;
+    @Positive(message = "importo.lesser.than.zero")
+    //Questo e' l'importo unitario, non l'importo totale del dettaglio
+    private BigDecimal importo;
     @NotNull
     @ManyToOne
     private Fattura fattura;
+
 
 }
