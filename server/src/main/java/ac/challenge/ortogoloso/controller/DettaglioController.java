@@ -1,6 +1,7 @@
 package ac.challenge.ortogoloso.controller;
 
 import ac.challenge.ortogoloso.controller.request.DettaglioSaveBody;
+import ac.challenge.ortogoloso.controller.response.DettagliListResponse;
 import ac.challenge.ortogoloso.dto.DettaglioDto;
 import ac.challenge.ortogoloso.service.DettaglioService;
 import org.slf4j.Logger;
@@ -8,12 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/dettaglio")
+@Validated
 public class DettaglioController {
 
     @Autowired
@@ -21,11 +27,14 @@ public class DettaglioController {
 
     Logger logger = LoggerFactory.getLogger(DettaglioController.class);
 
-    @GetMapping("/{id}}")
-    public ResponseEntity<List<DettaglioDto>> list(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<DettagliListResponse> list(@PathVariable Long id){
         try{
-            List<DettaglioDto> dettagli = dettaglioService.list(id);
-            return new ResponseEntity<>(dettagli, HttpStatus.OK);
+            DettagliListResponse body = new DettagliListResponse();
+            body.setDettagli(dettaglioService.list(id));
+            //sul dettaglio abbiamo il prezzo unitario, quindi va moltiplicato per le quantita' e sommato per avere il totale
+            body.setTotale(body.getDettagli().stream().map(DettaglioDto::getTotaleDettaglio).reduce(BigDecimal.ZERO,BigDecimal::add));
+            return new ResponseEntity<>(body, HttpStatus.OK);
         }
         catch(Exception ex){
             logger.error("Error in list()",ex);
@@ -34,7 +43,7 @@ public class DettaglioController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<DettaglioDto> save(@RequestBody DettaglioSaveBody body){
+    public ResponseEntity<DettaglioDto> save(@RequestBody @Valid DettaglioSaveBody body){
         try{
             return new ResponseEntity<>(dettaglioService.save(body.getDettaglioDto(), body.getFatturaId()),HttpStatus.CREATED);
         }
@@ -45,7 +54,7 @@ public class DettaglioController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<DettaglioDto> update(@RequestBody DettaglioDto body){
+    public ResponseEntity<DettaglioDto> update(@RequestBody @Valid DettaglioDto body){
         try{
             return new ResponseEntity<>(dettaglioService.update(body),HttpStatus.OK);
         }
