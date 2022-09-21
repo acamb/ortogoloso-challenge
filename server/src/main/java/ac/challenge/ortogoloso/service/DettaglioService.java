@@ -35,10 +35,10 @@ public class DettaglioService {
     }
 
     @Transactional
-    public DettaglioDto update(DettaglioDto dettaglioDto){
+    public Dettaglio update(DettaglioDto dettaglioDto){
         Dettaglio dettaglio = repository.findById(dettaglioDto.getId()).orElseThrow(()->new RuntimeException("dettaglio.not.found"));
         MapperLogic.dtoToDettaglio(dettaglioDto,dettaglio);
-        return MapperLogic.dettaglioToDto(repository.save(dettaglio));
+        return repository.save(dettaglio);
     }
 
     public List<DettaglioDto> list(Long fatturaId){
@@ -50,6 +50,10 @@ public class DettaglioService {
     @Transactional
     public void delete(Long id){
         repository.deleteById(id);
+    }
+
+    public Dettaglio get(Long id){
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("dettaglio.not.found"));
     }
 
 }

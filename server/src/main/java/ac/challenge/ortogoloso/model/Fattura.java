@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -46,7 +47,7 @@ public class Fattura {
     private BigDecimal importo;
     @NotBlank(message = "iban.required")
     private String iban;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "fattura")
     @JsonIgnore
     List<Dettaglio> dettagli;
 

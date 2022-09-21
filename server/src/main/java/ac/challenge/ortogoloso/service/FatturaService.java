@@ -42,7 +42,8 @@ public class FatturaService {
 
     @Transactional
     public void delete(Long id){
-        repository.deleteById(id);
+        Fattura fattura = repository.findById(id).orElseThrow(() -> new RuntimeException("fattura.not.found"));
+        repository.delete(fattura);
     }
 
     public FatturaDto read(Long id){

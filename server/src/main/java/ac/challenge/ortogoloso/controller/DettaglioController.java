@@ -4,6 +4,7 @@ import ac.challenge.ortogoloso.controller.request.DettaglioSaveBody;
 import ac.challenge.ortogoloso.controller.response.DettagliListResponse;
 import ac.challenge.ortogoloso.dto.DettaglioDto;
 import ac.challenge.ortogoloso.service.DettaglioService;
+import ac.challenge.ortogoloso.service.FatturaDettaglioCompositeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/dettaglio")
@@ -24,6 +23,9 @@ public class DettaglioController {
 
     @Autowired
     DettaglioService dettaglioService;
+
+    @Autowired
+    FatturaDettaglioCompositeService fatturaDettaglioCompositeService;
 
     Logger logger = LoggerFactory.getLogger(DettaglioController.class);
 
@@ -45,7 +47,7 @@ public class DettaglioController {
     @PostMapping("/")
     public ResponseEntity<DettaglioDto> save(@RequestBody @Valid DettaglioSaveBody body){
         try{
-            return new ResponseEntity<>(dettaglioService.save(body.getDettaglioDto(), body.getFatturaId()),HttpStatus.CREATED);
+            return new ResponseEntity<>(fatturaDettaglioCompositeService.saveDettaglio(body.getDettaglioDto(), body.getFatturaId()),HttpStatus.CREATED);
         }
         catch(Exception ex){
             logger.error("Error in save()",ex);
@@ -56,7 +58,7 @@ public class DettaglioController {
     @PutMapping("/")
     public ResponseEntity<DettaglioDto> update(@RequestBody @Valid DettaglioDto body){
         try{
-            return new ResponseEntity<>(dettaglioService.update(body),HttpStatus.OK);
+            return new ResponseEntity<>(fatturaDettaglioCompositeService.updateDettaglio(body),HttpStatus.OK);
         }
         catch(Exception ex){
             logger.error("Error in update()",ex);
@@ -67,7 +69,7 @@ public class DettaglioController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         try{
-            dettaglioService.delete(id);
+            fatturaDettaglioCompositeService.deleteDettaglio(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch(Exception ex){
