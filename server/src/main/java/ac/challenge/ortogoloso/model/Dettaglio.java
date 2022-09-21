@@ -19,11 +19,11 @@ public class Dettaglio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+    @NotBlank(message = "descrizione.required")
     private String descrizione;
-    @Min(1)
+    @Min(value = 1,message = "quantita.lesser.than.one")
     private int quantita;
-    @Min(1)
+    @Min(value = 1,message = "aliquota.lesser.than.one")
     private BigDecimal aliquotaIva;
     @NotNull
     @ManyToOne
