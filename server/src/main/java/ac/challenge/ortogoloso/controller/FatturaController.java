@@ -7,12 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/fattura")
+@Validated
 public class FatturaController {
 
     @Autowired
@@ -45,7 +48,7 @@ public class FatturaController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<FatturaDto> save(@RequestBody FatturaDto body){
+    public ResponseEntity<FatturaDto> save(@RequestBody @Valid FatturaDto body){
         try{
             return new ResponseEntity<>(fatturaService.save(body),HttpStatus.CREATED);
         }
@@ -56,7 +59,7 @@ public class FatturaController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<FatturaDto> update(@RequestBody FatturaDto body){
+    public ResponseEntity<FatturaDto> update(@RequestBody @Valid FatturaDto body){
         try{
             return new ResponseEntity<>(fatturaService.update(body),HttpStatus.OK);
         }

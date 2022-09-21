@@ -42,12 +42,16 @@ public class Fattura {
     @NotNull(message = "modalitaPagamento.required")
     private ModalitaPagamento modalitaPagamento;
     @Positive(message = "importo.lesser.than.zero") //l'importo deve essere sempre > 0 (per semplificare escludiamo note credito)
+    //Il totale e' dato dai prezzi unitari dei dettagli * le quantita', ma lo riportiamo anche sulla fattura per comodita'
     private BigDecimal importo;
     @NotBlank(message = "iban.required")
     private String iban;
     @OneToMany(cascade = CascadeType.REMOVE)
     @JsonIgnore
     List<Dettaglio> dettagli;
+
+    @Min(value = 1,message = "numeroRate.lesser.than.1")
+    private int numeroRate;
 
 
     public enum ModalitaPagamento{
