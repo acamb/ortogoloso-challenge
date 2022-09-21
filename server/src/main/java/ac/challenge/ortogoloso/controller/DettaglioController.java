@@ -1,5 +1,6 @@
 package ac.challenge.ortogoloso.controller;
 
+import ac.challenge.ortogoloso.controller.request.DettaglioSaveAllBody;
 import ac.challenge.ortogoloso.controller.request.DettaglioSaveBody;
 import ac.challenge.ortogoloso.controller.response.DettagliListResponse;
 import ac.challenge.ortogoloso.dto.DettaglioDto;
@@ -51,6 +52,18 @@ public class DettaglioController {
         }
         catch(Exception ex){
             logger.error("Error in save()",ex);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/all")
+    public ResponseEntity<?> saveAll(@RequestBody @Valid DettaglioSaveAllBody body){
+        try{
+            fatturaDettaglioCompositeService.saveDettagli(body.getDettagli(), body.getFatturaId());
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch(Exception ex){
+            logger.error("Error in saveAll()",ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
