@@ -1,1 +1,51 @@
-<p>dettaglio-view works!</p>
+<form #dettaglioForm="ngForm" (ngSubmit)="onSubmit(dettaglioForm)">
+    <div class="form-group col-md-3">
+        <div>
+            <label>
+                Descrizione
+            </label>
+        </div>
+        <div>
+            <input class="form-control" required [(ngModel)]="dettaglio.descrizione" name="descrizione"/>
+        </div>
+    </div>
+    <div class="form-group col-md-3">
+        <div>
+            <label>
+                Quantita
+            </label>
+        </div>
+        <div>
+            <input class="form-control" required [(ngModel)]="dettaglio.quantita" type="number" min="1" name="quantita"/>
+        </div>
+    </div>
+    <div class="form-group col-md-3">
+        <div>
+            <label>
+                Importo
+            </label>
+        </div>
+        <div>
+            <input class="form-control" required [(ngModel)]="dettaglio.importo" type="number" min="0" name="importo"/>
+        </div>
+    </div>
+    <div class="form-group col-md-3">
+        <div>
+            <label>
+                Aliquota IVA
+            </label>
+        </div>
+        <div>
+            <input class="form-control" required [(ngModel)]="dettaglio.aliquotaIva" type="number" min="0" name="aliquotaIva"/>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary" (onClick)="onBack()">Indietro</button>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-success">Salva</button>
+        </div>
+    </div>
+</form>

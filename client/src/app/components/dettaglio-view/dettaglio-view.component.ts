@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Dettaglio } from 'src/app/model/Dettaglio';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 /**
  * Componente per l'inserimento di un nuovo dettaglio
  */
@@ -10,9 +12,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DettaglioViewComponent implements OnInit {
 
-  constructor() { }
+  dettaglio = new Dettaglio();
+
+  @Output() save = new EventEmitter<Dettaglio>();
+
+  @Output() back = new EventEmitter<null>();
+
+
+  constructor() {
+      
+   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(form: NgForm){
+    if(form.valid){
+        this.save.emit(this.dettaglio);
+    }
+  }
+
+  onBack(){
+      this.back.emit();
   }
 
 }

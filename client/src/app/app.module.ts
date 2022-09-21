@@ -7,6 +7,7 @@ import { FattureListComponent } from './components/fatture-list/fatture-list.com
 import { FatturaViewComponent } from './components/fattura-view/fattura-view.component';
 import { DettaglioViewComponent } from './components/dettaglio-view/dettaglio-view.component';
 import { FatturaFormComponent } from './components/fattura-form/fattura-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FatturaFormComponent } from './components/fattura-form/fattura-form.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
