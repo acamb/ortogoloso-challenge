@@ -9,6 +9,7 @@ Posizionarsi nella cartella server\ e lanciare:
 
 # Lancio applicazione lato client
 Posizionarsi nella cartella client\ e lanciare:
+npm install
 ng serve
 
 # Avvio applicazione
