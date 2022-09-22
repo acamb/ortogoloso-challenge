@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { FatturaConDettagli } from 'src/app/model/FatturaConDettagli';
 import { DettagliListResponse } from 'src/app/model/DettagliListResponse';
 /**
- * Componente che gestisce la visualizzazione dei dati della fattura
+ * Componente che gestisce la visualizzazione dei dati della fattura, il salvataggio della fattura e dei dettagli e' delegato al parent
  */
 @Component({
   selector: 'app-fattura-form',
@@ -49,6 +49,7 @@ export class FatturaFormComponent implements OnInit,OnChanges {
 
   onSubmit(form: NgForm){
     if(form.valid){
+      this.fattura!.importo = this.totale;
       if(this.fattura!.id){
       this.saveFattura.emit(this.fattura!)
       }
@@ -71,9 +72,14 @@ export class FatturaFormComponent implements OnInit,OnChanges {
       this.deleteDettaglio.emit(dettaglio);
     }
     else{
-      this._dettagliList = this._dettagliList.filter(d => d === dettaglio)
-      this.totale=this._dettagliList.map(d => d.importo*d.quantita).reduce((sum,current)=> sum+current)
-      this.dettagli = { dettagli: this._dettagliList,totale: this._dettagliList.map(d => d.importo*d.quantita).reduce((sum,current)=> sum+current) }
+      this._dettagliList = this._dettagliList.filter(d => d !== dettaglio)
+      if(this._dettagliList.length > 0){
+        this.totale=this._dettagliList.map(d => d.importo*d.quantita).reduce((sum,current)=> sum+current)
+      }
+      else{
+        this.totale = 0;
+      }
+      this.dettagli = { dettagli: this._dettagliList,totale: this.totale }
     }
   }
 

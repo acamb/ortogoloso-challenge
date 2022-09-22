@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@ToString
 public class Fattura {
 
     @Id
@@ -42,7 +44,7 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "modalitaPagamento.required")
     private ModalitaPagamento modalitaPagamento;
-    @Positive(message = "importo.lesser.than.zero") //l'importo deve essere sempre > 0 (per semplificare escludiamo note credito)
+    @Min(value = 0,message = "importo.lesser.than.zero") //l'importo deve essere sempre > 0 (per semplificare escludiamo note credito)
     //Il totale e' dato dai prezzi unitari dei dettagli * le quantita', ma lo riportiamo anche sulla fattura per comodita'
     private BigDecimal importo;
     @NotBlank(message = "iban.required")

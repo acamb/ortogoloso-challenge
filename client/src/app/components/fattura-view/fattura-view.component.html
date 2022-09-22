@@ -1,6 +1,5 @@
-<app-fattura-form  *ngIf="fattura" [fattura]="fattura | async"
- [dettagli]="dettagli | async"
-  (deleteDettaglio)="onDeleteDettaglio($event)"
-   (saveDettaglio)="onSaveDettaglio($event)"
-    (saveFatturaConDettagli)="onSaveDettaglioList($event)"
-     (saveFattura)="onSaveFattura($event)">
+<div class="p-5">
+    <app-fattura-form *ngIf="fattura" [fattura]="fattura | async" [dettagli]="dettagli | async"
+        (deleteDettaglio)="onDeleteDettaglio($event)" (saveDettaglio)="onSaveDettaglio($event)"
+        (saveFatturaConDettagli)="onSaveDettaglioList($event)" (saveFattura)="onSaveFattura($event)"></app-fattura-form>
+</div>

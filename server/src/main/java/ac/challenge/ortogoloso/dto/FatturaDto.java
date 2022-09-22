@@ -4,6 +4,7 @@ import ac.challenge.ortogoloso.model.Fattura;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.EnumType;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class FatturaDto {
 
     private Long id;
@@ -33,7 +35,7 @@ public class FatturaDto {
     private String partitaIvaCessionario;
     @NotNull(message = "modalitaPagamento.required")
     private Fattura.ModalitaPagamento modalitaPagamento;
-    @Positive(message = "importo.lesser.than.zero") //l'importo deve essere sempre > 0 (per semplificare escludiamo note credito)
+    @Min(value = 0,message = "importo.lesser.than.zero") //l'importo deve essere sempre > 0 (per semplificare escludiamo note credito)
     private BigDecimal importo;
     @NotBlank(message = "iban.required")
     private String iban;

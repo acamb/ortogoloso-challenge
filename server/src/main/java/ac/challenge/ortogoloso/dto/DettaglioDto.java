@@ -3,6 +3,7 @@ package ac.challenge.ortogoloso.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class DettaglioDto {
     private Long id;
     @NotBlank(message = "descrizione.required")

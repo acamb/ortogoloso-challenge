@@ -1,51 +1,58 @@
-<form #dettaglioForm="ngForm" (ngSubmit)="onSubmit(dettaglioForm)">
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Descrizione
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="dettaglio.descrizione" name="descrizione"/>
+<div class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" [ngStyle]="{'display':modalDisplayStyle}"
+    [ngClass]="modalShowClass">
+    <div class="modal-dialog  modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                Nuovo dettaglio fattura
+            </div>
+            <div class="modal-body">
+                <form #dettaglioForm="ngForm" (ngSubmit)="onSubmit(dettaglioForm)">
+                    <div class="row input-group">
+                        <div class="col-md-6">
+                            <label>
+                                Descrizione
+                            </label>
+                            <input class="form-control" required [(ngModel)]="dettaglio.descrizione"
+                                name="descrizione" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>
+                                Quantita
+                            </label>
+                            <input class="form-control" required [(ngModel)]="dettaglio.quantita" type="number" min="1"
+                                name="quantita" />
+                        </div>
+                    </div>
+                    <div class="row input-group">
+                        <div class="col-md-6">
+                            <label>
+                                Importo
+                            </label>
+                            <input class="form-control" required [(ngModel)]="dettaglio.importo" type="number" min="0"
+                                name="importo" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>
+                                Aliquota IVA
+                            </label>
+                            <input class="form-control" required [(ngModel)]="dettaglio.aliquotaIva" type="number"
+                                min="0" name="aliquotaIva" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            <button type="button" class="btn btn-lg btn-secondary" (click)="onBack()">Indietro</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-lg btn-success">Salva</button>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Quantita
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="dettaglio.quantita" type="number" min="1" name="quantita"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Importo
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="dettaglio.importo" type="number" min="0" name="importo"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Aliquota IVA
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="dettaglio.aliquotaIva" type="number" min="0" name="aliquotaIva"/>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-md-4">
-            <button type="button" class="btn btn-primary" (click)="onBack()">Indietro</button>
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-success">Salva</button>
-        </div>
-    </div>
-</form>
+    
+<div class="modal-overlay modal-backdrop" [ngStyle]="{'display':modalDisplayStyle}"></div>

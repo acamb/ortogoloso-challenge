@@ -40,9 +40,9 @@ public class LoggingInterceptor implements MethodInterceptor {
         for(int i = 0;i<arguments.length;i++){
             Object arg = arguments[i];
             try {
-                sb.append("[index: ").append(i).append(",value: ").append(jsonMapper.writeValueAsString(arg)).append("]");
+                sb.append("[index: ").append(i).append(",value: ").append(jsonMapper.writeValueAsString(arg)).append("]").append("\n");
             } catch (JsonProcessingException e) {
-                sb.append("[index: ").append(i).append(", value{Not serializable}]");
+                sb.append("[index: ").append(i).append(", value{Not serializable}]").append("\n");
                 logger.warn("Exception serializing argument",e);
             }
 

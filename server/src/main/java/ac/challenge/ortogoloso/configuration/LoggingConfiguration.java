@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configurazione per gestire il logging tramite AOP su tutti i service e controller
+ */
 @Configuration
 public class LoggingConfiguration {
 

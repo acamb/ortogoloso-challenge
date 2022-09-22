@@ -1,26 +1,39 @@
-<h2>Elenco fatture</h2>
-<button class="btn btn-primary" (click)="onNuovaFattura()">Nuova</button>
-<div class="form-group col-md-12">
-    <table class="table table-striped">
-        <thead>
-            <th></th>
-            <th></th>
-            <th>Identificativo</th>
-            <th>Prestatore</th>
-            <th>Cessionario</th>
-            <th>Data</th>
-            <th>Importo</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let f of fatture | async">
-                <td><a (click)="onRemoveFattura(f)">X</a></td>
-                <td><a (click)="onSelectFattura(f)">X</a></td>
-                <td>{{f.identificativo}}</td>
-                <td>{{f.nomePrestatore}}</td>
-                <td>{{f.nomeCessionario}}</td>
-                <td>{{f.dataEmissione | date}}</td>
-                <td>{{f.importo}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="p-5">
+    <div class="card">
+        <div class="card-header">
+            <h2>Elenco fatture</h2>
+        </div>
+        <div class="card-body">
+            <div class="p-3">
+                <button class="btn btn-primary" (click)="onNuovaFattura()"><i
+                        class="bi bi-file-earmark-plus-fill p-1"></i>Nuova fattura</button>
+            </div>
+            <div class="form-group col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <th></th>
+                        <th>Identificativo</th>
+                        <th>Prestatore</th>
+                        <th>Cessionario</th>
+                        <th>Data</th>
+                        <th>Importo</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let f of fatture | async">
+                            <td>
+                                <i (click)="onRemoveFattura(f)" class="bi bi-trash-fill text-danger p-2"></i>
+                                <i (click)="onSelectFattura(f)" class="bi bi-pencil-square text-primary p-2"></i>
+                            </td>
+                            <td>{{f.identificativo}}</td>
+                            <td>{{f.nomePrestatore}}</td>
+                            <td>{{f.nomeCessionario}}</td>
+                            <td>{{f.dataEmissione | date}}</td>
+                            <td>{{f.importo}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 </div>

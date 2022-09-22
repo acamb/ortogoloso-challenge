@@ -11,7 +11,7 @@ export class Fattura{
     partitaIvaPrestatore: string = "12345678911";
     nomeCessionario: string;
     partitaIvaCessionario: string;
-    modalitaPagamento: ModalitaPagamento;
+    modalitaPagamento: ModalitaPagamento = ModalitaPagamento.BONIFICO;
     importo: number;
     iban: string;
     numeroRate: number = 1;  

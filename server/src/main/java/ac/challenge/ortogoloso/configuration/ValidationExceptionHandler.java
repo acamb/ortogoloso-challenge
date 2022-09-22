@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Advice per gestire gli errori di validazione e ritornare delle chiavi.
+ * Attualmente il FE ignora questi messaggi, ma possono essere facilmente agganciati e tradotti
+ */
 @ControllerAdvice
 public class ValidationExceptionHandler {
 

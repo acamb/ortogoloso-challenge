@@ -55,6 +55,7 @@ export class FatturaViewComponent implements OnInit {
     let fattura = await firstValueFrom(this.fatturaService.save(fatturaConDettagli.fattura))
     await firstValueFrom(this.dettagliService.saveAll(fatturaConDettagli.dettagli,fattura.id));
     this.dettagli = this.dettagliService.getAll(fattura.id);
+    this.router.navigateByUrl("/")
   }
 
   onSaveFattura(fattura: Fattura){

@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Dettaglio } from 'src/app/model/Dettaglio';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 /**
- * Componente per l'inserimento di un nuovo dettaglio
+ * Componente per l'inserimento di un nuovo dettaglio, la business logic di inserimento e' delegata al parent
  */
 @Component({
   selector: 'app-dettaglio-view',
@@ -18,6 +18,11 @@ export class DettaglioViewComponent implements OnInit {
 
   @Output() back = new EventEmitter<null>();
 
+  @Input() modalVisible=false;
+
+  @ViewChild("dettaglioForm")
+  form: NgForm;
+
 
   constructor() {
       
@@ -29,13 +34,43 @@ export class DettaglioViewComponent implements OnInit {
   onSubmit(form: NgForm){
     if(form.valid){
         this.save.emit(this.dettaglio);
+        
+        //Visto che riutilizzo la modal facendola apparire/scomparire, devo resettare la validazione ed i dati
         this.dettaglio=new Dettaglio();
+        this.form.resetForm();
     }
   }
 
   onBack(){
       this.back.emit();
+
+      //Visto che riutilizzo la modal facendola apparire/scomparire, devo resettare la validazione ed i dati
       this.dettaglio=new Dettaglio();
+      this.form.resetForm();
+  }
+
+  /**
+   * Governo la visibilita' della modal attraverso la classe css 'show'
+   */
+  get modalShowClass(){
+    if(this.modalVisible){
+      return "show";
+    }
+    else{
+      return "";
+    }
+  }
+
+  /**
+   * Governo la visibilita' dello sfondo semi-trasparente impostando il valore 'display' a block/none
+   */
+  get modalDisplayStyle(){
+    if(this.modalVisible){
+      return "block";
+    }
+    else{
+      return "none";
+    }
   }
 
 }

@@ -3,6 +3,7 @@ package ac.challenge.ortogoloso.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @Entity
+@ToString
 public class Dettaglio {
 
     @Id

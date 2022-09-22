@@ -11,6 +11,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        //Per semplicita' permetto il cors su tutto
         registry.addMapping("/**").allowedOrigins("*").allowedMethods("HEAD","GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS").allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
                         "Access-Control-Request-Headers")
                 .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials");

@@ -1,140 +1,128 @@
-<h2 *ngIf="fattura">Fattura</h2>
-<form #fatturaForm="ngForm" (ngSubmit)="onSubmit(fatturaForm)" *ngIf="fattura">
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Identificativo
-            </label>
-        </div>
-        <div>
-            <!-- //TODO validator-->
-            <input class="form-control" required [(ngModel)]="fattura.identificativo" name="identificativo"/>
-        </div>
+<div class="card">
+    <div class="card-header">
+        <h2><span *ngIf="fattura ? !fattura.id : false">Nuova </span>Fattura</h2>
     </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Data emissione
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="fattura.dataEmissione" type="date"  name="dataEmissione"/>
-        </div>
+    <div class="card-body">
+        <form #fatturaForm="ngForm" (ngSubmit)="onSubmit(fatturaForm)" *ngIf="fattura">
+            <div class="row input-group">
+                <div class="col-md-6">
+                    <label>
+                        Identificativo
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.identificativo" name="identificativo"
+                        pattern="[0-9]+/[0-9]{4}" />
+                    <span class="form-text">Formato numero/anno</span>
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        Data emissione
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.dataEmissione" type="date"
+                        name="dataEmissione" />
+                </div>
+            </div>
+            <div class="row input-group">
+                <div class="col-md-6">
+                    <label>
+                        Nome prestatore
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.nomePrestatore" name="nomePrestatore" />
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        Partita IVA prestatore
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.partitaIvaPrestatore" minlength="11"
+                        maxlength="11" name="partitaIvaPrestatore" />
+                </div>
+            </div>
+            <div class="row input-group">
+                <div class="col-md-6">
+                    <label>
+                        Nome cessionario
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.nomeCessionario" name="nomeCessionario" />
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        Partita IVA cessionario
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.partitaIvaCessionario" minlength="11"
+                        maxlength="11" name="partitaIvaCessionario" />
+                </div>
+            </div>
+            <div class="row input-group">
+                <div class="col-md-6">
+                    <label>
+                        Modalit&agrave; pagamento
+                    </label>
+                    <select class="form-select" required [(ngModel)]="fattura.modalitaPagamento"
+                        name="modalitaPagamento">
+                        <option *ngFor="let item of keys(modalitaPagamentoList)" [ngValue]="item">{{ item }}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        Importo
+                    </label>
+                    <input class="form-control" disabled [(ngModel)]="this.totale" name="importo" />
+                    <span class="form-text">L'importo &egrave; calcolato dai dettagli</span>
+                </div>
+            </div>
+            <div class="row input-group">
+                <div class="col-md-6">
+                    <label>
+                        Iban
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.iban" name="iban" />
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        Numero rate
+                    </label>
+                    <input class="form-control" required [(ngModel)]="fattura.numeroRate" min="1" name="numeroRate" />
+                </div>
+            </div>
+            <br />
+            <h3>Dettagli</h3>
+            <button type="button" (click)="showDettaglio()" class="btn btn-primary">
+                <i class="bi bi-file-earmark-plus-fill p-1"></i>
+                Nuovo dettaglio
+            </button>
+            <app-dettaglio-view [modalVisible]="dettaglioVisible" (save)="onSaveDettaglio($event)"
+                (back)="onDettaglioBack()"></app-dettaglio-view>
+            <div class="form-group col-md-12">
+                <table class="table table-striped" *ngIf="dettagli && dettagli.dettagli">
+                    <thead>
+                        <th class="col-md-1"></th>
+                        <th>Descrizione</th>
+                        <th>Quantit&agrave;</th>
+                        <th>Importo</th>
+                        <th>Aliquota</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of dettagli.dettagli">
+                            <td><i (click)="onRemoveDettaglio(d)" class="bi bi-trash-fill text-danger"></i></td>
+                            <td>{{d.descrizione}}</td>
+                            <td>{{d.quantita}}</td>
+                            <td>{{d.importo}}</td>
+                            <td>{{d.aliquotaIva}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-lg btn-secondary" (click)="onBack()">Indietro</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-lg btn-success">Salva</button>
+                </div>
+            </div>
+        </form>
+
     </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Nome prestatore
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="fattura.nomePrestatore" name="nomePrestatore"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Partita IVA prestatore
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="fattura.partitaIvaPrestatore" minlength="11" maxlength="11" name="partitaIvaPrestatore"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Nome cessionario
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="fattura.nomeCessionario" name="nomeCessionario"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Partita IVA cessionario
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="fattura.partitaIvaCessionario" minlength="11" maxlength="11" name="partitaIvaCessionario"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Modalit&agrave; pagamento
-            </label>
-        </div>
-        <div>
-            <select class="form-control" required [(ngModel)]="fattura.modalitaPagamento" name="modalitaPagamento">
-                <option *ngFor="let item of keys(modalitaPagamentoList)" [ngValue]="item">{{ item }}</option> 
-            </select>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Importo
-            </label>
-        </div>
-        <div>
-            <input class="form-control" readonly [(ngModel)]="this.totale" name="importo"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Iban
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="fattura.iban" name="iban"/>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <div>
-            <label>
-                Numero rate
-            </label>
-        </div>
-        <div>
-            <input class="form-control" required [(ngModel)]="fattura.numeroRate" min="1" name="numeroRate"/>
-        </div>
-    </div>
-    <br/>
-    <h3>Dettagli</h3>
-    <button type="button" (click)="showDettaglio()" class="btn btn-primary">Nuovo</button>
-    <app-dettaglio-view [hidden]="!dettaglioVisible" (save)="onSaveDettaglio($event)" (back)="onDettaglioBack()"></app-dettaglio-view>
-    <div class="form-group col-md-12">
-        <table class="table table-striped" *ngIf="dettagli && dettagli.dettagli">
-            <thead>
-                <th></th>
-                <th>Descrizione</th>
-                <th>Quantit&agrave;</th>
-                <th>Importo</th>
-                <th>Aliquota</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let d of dettagli.dettagli">
-                    <td><a (click)="onRemoveDettaglio(d)">X</a></td>
-                    <td>{{d.descrizione}}</td>
-                    <td>{{d.quantita}}</td>
-                    <td>{{d.importo}}</td>
-                    <td>{{d.aliquotaIva}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <br/>
-    <div class="row">
-        <div class="col-md-4">
-            <button type="button" class="btn btn-primary" (click)="onBack()">Indietro</button>
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-success">Salva</button>
-        </div>
-    </div>
-</form>
+</div>
